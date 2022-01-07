@@ -1,0 +1,26 @@
+
+
+.navbar-blur{
+    background-color: rgb(0 0 0 / 40%) !important;
+}
+
+.hiya h1,
+.hiya p,
+.hiya a {
+    color: #fff !important;
+    font-size: 2rem;
+}
+
+.row{
+        --bs-gutter-x: 0;
+}
+
+ul.hiragana {
+    border-left: 3px solid darkgrey;
+}
+
+.hiragana li {
+    margin-left: 10px;
+    list-style-type: hiragana;
+}
+
