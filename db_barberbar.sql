@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2022 at 02:46 AM
+-- Generation Time: Jan 08, 2022 at 02:58 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.13
 
@@ -44,8 +44,43 @@ INSERT INTO `jam_kerja` (`id_hari`, `hari`, `buka`, `tutup`) VALUES
 (3, 'Rabu', '08:00:00', '09:00:00'),
 (4, 'Kamis', '08:00:00', '09:00:00'),
 (5, 'Jumat', '08:00:00', '09:00:00'),
-(6, 'Sabtu', '10:00:00', '09:00:00'),
+(6, 'Sabtu', '11:00:00', '09:00:00'),
 (7, 'Minggu', '10:00:00', '09:00:00');
+
+--
+-- Triggers `jam_kerja`
+--
+DELIMITER $$
+CREATE TRIGGER `log_jam` AFTER UPDATE ON `jam_kerja` FOR EACH ROW BEGIN
+
+INSERT INTO `log_event` (`id_log`, `tanggal_waktu`, `action`) VALUES (NULL, NULL, 'Tabel Jam Kerja');
+
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `log_event`
+--
+
+CREATE TABLE `log_event` (
+  `id_log` int(11) NOT NULL,
+  `tanggal_waktu` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `action` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `log_event`
+--
+
+INSERT INTO `log_event` (`id_log`, `tanggal_waktu`, `action`) VALUES
+(1, '2022-01-07 04:21:53', 'Tabel Transaksi'),
+(2, '2022-01-07 10:34:26', 'Tabel Transaksi'),
+(3, '2022-01-08 01:53:41', 'Tabel Cabang'),
+(4, '2022-01-08 01:57:03', 'Tabel Jam Kerja'),
+(5, '2022-01-08 01:57:33', 'Tabel Kategori');
 
 -- --------------------------------------------------------
 
@@ -65,8 +100,19 @@ CREATE TABLE `model_rambut` (
 --
 
 INSERT INTO `model_rambut` (`id_model`, `nama_model`, `foto_model`, `deskripsi`) VALUES
-(1, 'Comma Hair', 'comma.jpg', 'Comma Hair merupakan gaya rambut andalan pria Korea.'),
-(5, 'Side Part', 'trump.jpg', 'Dikesampingkan seperti keadilan');
+(1, 'Comma Hair', 'comma.jpg', 'Comma Hair merupakan gaya rambut andalan pria Korea.');
+
+--
+-- Triggers `model_rambut`
+--
+DELIMITER $$
+CREATE TRIGGER `log_rambut` AFTER INSERT ON `model_rambut` FOR EACH ROW BEGIN
+
+INSERT INTO `log_event` (`id_log`, `tanggal_waktu`, `action`) VALUES (NULL, NULL, 'Tabel Model Rambut');
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -88,9 +134,19 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `nama_pegawai`, `no_hp`, `email`, `pass`, `pp`) VALUES
-('P-1', 'Bagas', '081227868290', 'bagas@gmail.com', 'bagas123', 'sedenter.png'),
-('P-2', 'Kim Jong Kun', '088975646', 'jongun@gmail.com', 'nowayhome', 'kimjongun.jpg'),
-('P-3', 'Putin', '123234', 'putien@gmail.com', 'blablabla', 'putin.jpeg');
+('P-1', 'Bagas', '081227868290', 'bagas@gmail.com', 'bagas123', 'sedenter.png');
+
+--
+-- Triggers `pegawai`
+--
+DELIMITER $$
+CREATE TRIGGER `log_pegawai` BEFORE INSERT ON `pegawai` FOR EACH ROW BEGIN
+
+INSERT INTO `log_event` (`id_log`, `tanggal_waktu`, `action`) VALUES (NULL, NULL, 'Tabel Pegawai');
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -114,6 +170,18 @@ INSERT INTO `tbl_cabang` (`id_cabang`, `nama_cabang`, `no_hp`, `alamat`) VALUES
 (2, 'Bandung', 234345456, 'Bandung'),
 (3, 'Yogyakarta', 89098, 'Yogyakarta');
 
+--
+-- Triggers `tbl_cabang`
+--
+DELIMITER $$
+CREATE TRIGGER `log_cabang` AFTER INSERT ON `tbl_cabang` FOR EACH ROW BEGIN
+
+INSERT INTO `log_event` (`id_log`, `tanggal_waktu`, `action`) VALUES (NULL, NULL, 'Tabel Cabang');
+
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -133,6 +201,18 @@ CREATE TABLE `tbl_kategori` (
 INSERT INTO `tbl_kategori` (`id_kategori`, `kategori`, `harga`) VALUES
 (1, 'Dewasa', 90000),
 (2, 'Anak', 70000);
+
+--
+-- Triggers `tbl_kategori`
+--
+DELIMITER $$
+CREATE TRIGGER `log_kategori` AFTER INSERT ON `tbl_kategori` FOR EACH ROW BEGIN
+
+INSERT INTO `log_event` (`id_log`, `tanggal_waktu`, `action`) VALUES (NULL, NULL, 'Tabel Kategori');
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -159,7 +239,21 @@ INSERT INTO `transaksi` (`id_transaksi`, `tanggal_transaksi`, `id_kategori`, `id
 (31, '2022-01-08', 1, 1),
 (32, '2022-01-14', 1, 2),
 (33, '2022-01-14', 1, 2),
-(34, '2022-01-07', 2, 2);
+(34, '2022-01-07', 2, 2),
+(36, '2022-01-07', 1, 2),
+(39, '2022-01-07', 2, 2);
+
+--
+-- Triggers `transaksi`
+--
+DELIMITER $$
+CREATE TRIGGER `log` BEFORE INSERT ON `transaksi` FOR EACH ROW BEGIN
+
+INSERT INTO `log_event` (`id_log`, `tanggal_waktu`, `action`) VALUES (NULL, NULL, 'Tabel Transaksi');
+
+END
+$$
+DELIMITER ;
 
 --
 -- Indexes for dumped tables
@@ -170,6 +264,12 @@ INSERT INTO `transaksi` (`id_transaksi`, `tanggal_transaksi`, `id_kategori`, `id
 --
 ALTER TABLE `jam_kerja`
   ADD PRIMARY KEY (`id_hari`);
+
+--
+-- Indexes for table `log_event`
+--
+ALTER TABLE `log_event`
+  ADD PRIMARY KEY (`id_log`);
 
 --
 -- Indexes for table `model_rambut`
@@ -214,6 +314,12 @@ ALTER TABLE `jam_kerja`
   MODIFY `id_hari` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `log_event`
+--
+ALTER TABLE `log_event`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `model_rambut`
 --
 ALTER TABLE `model_rambut`
@@ -223,19 +329,19 @@ ALTER TABLE `model_rambut`
 -- AUTO_INCREMENT for table `tbl_cabang`
 --
 ALTER TABLE `tbl_cabang`
-  MODIFY `id_cabang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_cabang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables
