@@ -13,7 +13,7 @@
 ![Dashboard](https://github.com/indogegewepe/BARBERBAR/blob/main/assets/img/transaksi.png)
 ### Ini adalah halaman admin untuk memasukkan data setiap pelanggan.
 
-Link
+Link : <br>
 Preview Tampilan Banner : http://barberbar.epizy.com/
 <hr>
 Preview Tampilan Dashboard : http://barberbar.epizy.com/admin
