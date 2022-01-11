@@ -16,5 +16,4 @@
 Link
 Preview Tampilan Banner : http://barberbar.epizy.com/
 <hr><br>
-
 Preview Tampilan Dashboard : http://barberbar.epizy.com/admin
