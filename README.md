@@ -12,3 +12,9 @@
 ## Transaksi
 ![Dashboard](https://github.com/indogegewepe/BARBERBAR/blob/main/assets/img/transaksi.png)
 ### Ini adalah halaman admin untuk memasukkan data setiap pelanggan.
+
+Link
+Preview Tampilan Banner : http://barberbar.epizy.com/
+<hr><br>
+
+Preview Tampilan Dashboard : http://barberbar.epizy.com/admin
